@@ -1,0 +1,44 @@
+{% extends 'student/books-list.html' %}
+
+{% block title %}
+<title>教材征订系统—学生端</title>
+{% endblock %}
+
+{% block content %}
+<div class="row-content am-cf">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf" style="font-size: 26px;color: #3599d6;">已订购教材列表</div>
+                </div>
+                <div class="widget-body  am-fr">
+                    <div class="widget am-cf">
+                        <div class="widget-body  widget-body-lg am-fr">
+                            <table width="100%" class="am-table am-table-compact am-table-bordered tpl-table-black " id="example-r">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;width: 800px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">教材名称</th>
+                                        <th style="text-align:center;">ＩＳＢＮ</th>
+                                        <th style="text-align:center;">单价(本/元)</th>
+                                        <th style="text-align:center;">数量(本)</th>
+                                        <th style="text-align:center;">总计(元)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gradeX">
+                                        <td style="text-align:center;">数字图像处理与机器视觉——Visual C++与MATLAB实现(第2版)</td>
+                                        <td style="text-align:center;">9787115346681</td>
+                                        <td style="text-align:center;">79</td>
+                                        <td style="text-align:center;">100</td>
+                                        <td style="text-align:center;">7900</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

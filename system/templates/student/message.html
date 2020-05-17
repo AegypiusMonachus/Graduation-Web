@@ -1,0 +1,46 @@
+{% extends 'student/books-list.html' %}
+
+{% block title %}
+<title>教材征订系统—学生端</title>
+{% endblock %}
+
+{% block content %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf" style="font-size: 26px;color: #3599d6;">消息列表</div>
+                </div>
+                <div class="widget-body  widget-body-lg am-fr">
+                    <table width="100%" class="am-table am-table-compact tpl-table-black " id="example-r">
+                        <thead>
+                            <tr>
+                                <th style="font-size: 15px;">文章标题</th>
+                                <th style="font-size: 15px;">时间</th>
+                                <th style="font-size: 15px;">详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for info in info_data %}
+                            <tr class="gradeX">
+                                <td class="am-text-middle">{{ info.title }}</td>
+                                <td class="am-text-middle">{{ info.time }}</td>
+                                <td>
+                                    <div class="tpl-table-black-operation">
+                                        <a href="{% url 'student_message_detail' %}?isbn={{ info.id }}" title="查看信息详情">
+                                            查看详情
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <!-- more data -->
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'student/books-list.html' %}
+
+{% block title %}
+<title>教材征订系统—学生端</title>
+{% endblock %}
+
+{% block content %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf" style="font-size: 26px;color: #3599d6;">消息列表</div>
+                </div>
+                <div class="widget-body  widget-body-lg am-fr">
+                    <div class="cl pd-20">
+                        <dl style="text-align:center;">
+                            <dt>
+                                <span class="f-18" style="text-align:center;font-size: 20px;">{{ title }}</span>
+                            </dt>
+                            <br/>
+                            <dd class="pt-10 f-12" style="margin-left:0">{{ time }}</dd>
+                        </dl>
+                    </div>
+                    <div class="pd-20" style="text-align:center;">
+                        <p>
+                            {{ content }}
+                        </p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}

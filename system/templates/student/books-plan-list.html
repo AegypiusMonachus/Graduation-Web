@@ -1,0 +1,107 @@
+{% extends 'student/books-list.html' %}
+
+{% block title %}
+<title>教材征订系统—学生端</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf" style="font-size: 26px;color: #3599d6;">预定教材列表</div>
+                </div>
+                <div class="widget-body  am-fr">
+                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                        <div class="am-form-group">
+                            <div class="am-btn-toolbar">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-12">
+                        <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                            <thead>
+                                <tr>
+                                    <th>教材名称</th>
+                                    <th>教材书号</th>
+                                    <th>单价</th>
+                                    <th>主编</th>
+                                    <th>出版社</th>
+                                    <th>出版时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for book in books_data %}
+                                    <tr class="gradeX">
+                                        <td class="am-text-middle" style="width: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ book.book_name }}</td>
+                                        <td class="am-text-middle">{{ book.book_isbn }}</td>
+                                        <td class="am-text-middle">{{ book.price }}</td>
+                                        <td class="am-text-middle">{{ book.author }}</td>
+                                        <td class="am-text-middle">{{ book.publisher }}</td>
+                                        <td class="am-text-middle">{{ book.publish_time }}</td>
+                                        <td class="am-text-middle">
+                                            <div class="tpl-table-black-operation" >
+                                                <a href="{% url 'student_books_del' book.book_isbn %}" title="删除该教材！">删除</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                <!-- more data -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="am-u-lg-12 am-cf">
+                        <div class="am-fr">
+                            <span class="txt">
+                                合计:
+                            </span>
+                            <strong class="price">
+                                ¥
+                                <em id="J_Total">
+                                    {{ total_price }}
+                                </em>
+                                元
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="am-u-lg-12 am-cf">
+                        <div class="am-fr">
+                            <ul class="am-pagination tpl-pagination">
+                                <li  id="J_Go" class="am-disabled">
+                                    <a>确认订购</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+    // 绑定单击事件
+    $('#J_Go').click(function(){      
+        // 获取 所选的购物车id
+        var books_isbn = ComputerPrice();
+        // 把数组转为json格式字符串
+        var data = JSON.stringify(books_isbn);
+        // console.log(data)
+        location.href = "{% url 'student_books_confirm' %}?books_isbn="+data
+    })
+    function ComputerPrice(){
+        var books_isbn = [];
+        // 获取页面中需要的元素
+        $('.gradeX').each(function(){
+            books_isbn.push($(this).find('td:nth-child(2)').text())
+        })
+        console.log(typeof(books_isbn))
+        // 返回购物车中选择的教材isbn
+        return books_isbn
+    }
+})
+</script>
+{% endblock %}

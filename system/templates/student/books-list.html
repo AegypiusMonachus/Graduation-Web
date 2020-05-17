@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+    {% block title %}
+    <title>教材征订系统—学生端</title>
+    {% endblock %}
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="apple-touch-icon-precomposed" href="/static/student/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="/static/student/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="/static/student/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/static/student/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="/static/student/css/app.css">
+    <script src="/static/student/js/jquery.min.js"></script>
+    <script src="/static/student/js/echarts.min.js"></script>
+</head>
+
+<body data-type="widgets">
+    <script src="/static/student/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <!-- 头部 -->
+        <header>
+            <!-- <div class="am-fl tpl-header-logo" style="color: white;font-size: 30px;">
+                教材征订系统
+            </div> -->
+            <!-- 右侧内容 -->
+            <div class="tpl-header-fluid">
+                <!-- 侧边切换 -->
+                <div class="am-fl tpl-header-switch-button am-icon-list">
+                </div>
+                <!-- 其它功能-->
+                <div class="am-fr tpl-header-navbar">
+                    <ul>
+                        <!-- 欢迎语 -->
+                        <li class="am-text-sm tpl-header-navbar-welcome">
+                            <a href="javascript:;">欢迎你, <span>{{ request.session.AdminUser.username }}</span> ！</a>
+                        </li>
+                        <!-- 退出 -->
+                        <li class="am-text-sm">
+                            <a href="{% url 'student_logout' %}">
+                                <span class="am-icon-sign-out"></span> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- 侧边导航栏 -->
+        <div class="left-sidebar">
+            <!-- 菜单 -->
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'student_message' %}" style="font-size: 20px;">
+                        消息列表
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'student_books_index' %}" style="font-size: 20px;">
+                        教材列表
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'student_books_order' %}" style="font-size: 20px;">
+                        预订购
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'student_books_buy' %}" style="font-size: 20px;">
+                        已订购
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'student_info' %}" style="font-size: 20px;">
+                        个人信息
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'student_pwd' %}" style="font-size: 20px;">
+                        修改密码
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'class_order_books' %}" style="font-size: 20px;">
+                        班级教材订购情况
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{% url 'class_order_picture' %}" style="font-size: 20px;">
+                        班级教材图形化
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            {% block content %}
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title  am-cf" style="font-size: 26px;color: #3599d6;">教材列表</div>
+                            </div>
+                            <div class="widget-body  am-fr">
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                                    <div class="am-form-group">
+                                        <div class="am-btn-toolbar">
+                                        </div>
+                                    </div>
+                                </div>
+                                <form>
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                                        <div class="am-form-group tpl-table-list-select">
+                                            <select name="types" data-am-selected="{btnSize: 'sm'}" style="display: none;">
+                                                <option value="all" {% if request.GET.types == 'all' %} selected {% endif %}>所有类别</option>
+                                                <option value="book_name" {% if request.GET.types == 'book_name' %} selected {% endif %}>教材名称</option>  
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                            <input value="{{ request.GET.keywords }}" name="keywords" type="text" class="am-form-field ">
+                                            <span class="am-input-group-btn">
+                                                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 250px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">教材名称</th>
+                                                <th>教材书号</th>
+                                                <th>单价</th>
+                                                <th>主编</th>
+                                                <th>出版社</th>
+                                                <th>出版时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for book in books_data %}
+                                            <tr class="gradeX">
+                                                <td class="am-text-middle">{{ book.book_name }}</td>
+                                                <td class="am-text-middle">{{ book.book_isbn }}</td>
+                                                <td class="am-text-middle">{{ book.price }}</td>
+                                                <td class="am-text-middle">{{ book.author }}</td>
+                                                <td class="am-text-middle">{{ book.publisher }}</td>
+                                                <td class="am-text-middle">{{ book.publish_time }}</td>
+                                                <td class="am-text-middle">
+                                                    <div class="tpl-table-black-operation" >
+                                                        <a href="{% url 'student_books_add' %}?isbn={{ book.book_isbn }}" title="加入教材预定表">预定</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            <!-- more data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+                                    <div class="am-fr">
+                                        <ul class="am-pagination tpl-pagination">
+                                            {% load pagetag %}
+                                            {% showpages books_data.paginator.num_pages request %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+    </div>
+    <script src="/static/student/js/amazeui.min.js"></script>
+    <script src="/static/student/js/amazeui.datatables.min.js"></script>
+    <script src="/static/student/js/dataTables.responsive.min.js"></script>
+    <script src="/static/student/js/app.js"></script>
+</body>
+</html>

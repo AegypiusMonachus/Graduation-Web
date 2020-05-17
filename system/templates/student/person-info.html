@@ -1,0 +1,58 @@
+{% extends 'student/books-list.html' %}
+
+{% block title %}
+<title>教材征订系统—学生端</title>
+{% endblock %}
+
+{% block content %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl" style="font-size: 26px;color: #3599d6;">个人信息</div>
+                </div>
+                <div class="widget-body am-fr">
+                    <form class="am-form tpl-form-line-form">
+                        {% csrf_token %}
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">学号： </label>
+                            <div class="am-u-sm-9" style="font-size: 20px">
+                                <span>{{ student_info.student_id }}</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">姓名： </label>
+                            <div class="am-u-sm-9" style="font-size: 20px">
+                                <span>{{ student_info.name }}</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">性别： </label>
+                            <div class="am-u-sm-9" style="font-size: 20px">
+                                <span>{{ student_info.sex }}</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">班级： </label>
+                            <div class="am-u-sm-9" style="font-size: 20px">
+                                <span>{{ student_info.class_1 }}</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">联系方式： </label>
+                            <div class="am-u-sm-9" style="font-size: 20px">
+                                <span>{{ student_info.tel }}</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
